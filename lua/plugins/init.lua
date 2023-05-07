@@ -44,7 +44,7 @@ return {
   {
     'nvim-lualine/lualine.nvim',
     lazy = true,
-    dependencies = { 'kyazdani42/nvim-web-devicons', opt = true }
+    dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
   },
   {
     "ggandor/leap.nvim",
@@ -67,6 +67,13 @@ return {
     ft = "tridactyl",
   },
   "chrisbra/unicode.vim",
+  {
+    "folke/trouble.nvim",
+    config = true,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    }
+  },
 
   --
   -- Colour Schemes
