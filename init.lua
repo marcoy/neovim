@@ -88,6 +88,27 @@ vim.o.undodir = vim.fn.stdpath("config") .. "/undodir"
 vim.keymap.set('i', 'jk', '<esc>')
 vim.keymap.set('n', ';', ':')
 
+-- Neovide <<<
+
+if vim.g.neovide then
+  vim.o.guifont = "marco Nerd Font Mono:#e-subpixelantialias:h12"
+
+  vim.g.neovide_refresh_rate = 60
+  vim.g.neovide_refresh_rate_idle = 5
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_remember_window_size = true
+
+  local opts = { noremap = true, silent = true }
+  vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
+  vim.keymap.set('n', '<D-s>', ':w<CR>', opts) -- Save
+  vim.keymap.set('v', '<D-c>', '"+y', opts) -- Copy
+  vim.keymap.set('n', '<D-v>', '"+P', opts) -- Paste normal mode
+  vim.keymap.set('v', '<D-v>', '"+P', opts) -- Paste visual mode
+  vim.keymap.set('c', '<D-v>', '<C-R>+', opts) -- Paste command mode
+  vim.keymap.set('i', '<D-v>', '<C-o>"+p', opts) -- Paste insert mode
+end
+-- >>>
+
 -- OS Specific <<<
 
 -- >>>
