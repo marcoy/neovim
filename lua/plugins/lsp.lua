@@ -1,5 +1,18 @@
 return {
   {
+    "folke/trouble.nvim",
+    config = true,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    }
+  },
+  {
+    "glepnir/lspsaga.nvim",
+    lazy = true,
+    config = true,
+    cmd = "Lspsaga",
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
     dependencies = {
@@ -27,19 +40,24 @@ return {
 
       lsp.on_attach(function(client, bufnr)
         lsp.default_keymaps({buffer = bufnr})
-        local opts = {buffer = bufnr}
+        local opts = { buffer = bufnr, prefix = "<space>" }
+        local wk = require("which-key")
 
-        vim.keymap.set('n', '<space>f', function()
-          vim.lsp.buf.format { async = true }
-        end, opts)
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', '<space>ca', vim.lsp.codelens.run, opts)
-        vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wl', function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, opts)
+        wk.register({
+          f = { function() vim.lsp.buf.format { async = true } end, "Format file" },
+          r = {
+            n = { vim.lsp.buf.rename, "Rename" },
+          },
+          c = {
+            l = { vim.lsp.codelens.run, "Code lens" },
+            a = { vim.lsp.buf.code_action, "Code actions" },
+          },
+          w = {
+            a = { vim.lsp.buf.add_workspace_folder, "Workspace add folder" },
+            r = { vim.lsp.buf.remove_workspace_folder, "Workspace remove folder" },
+            l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace list folders" },
+          },
+        }, opts)
       end)
 
       -- (Optional) Configure lua language server for neovim

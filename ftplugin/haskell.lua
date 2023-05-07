@@ -2,19 +2,28 @@ local ht = require('haskell-tools')
 local def_opts = { noremap = true, silent = true, }
 ht.start_or_attach {
   hls = {
+    default_settings = {
+      haskell = { -- haskell-language-server options
+        formattingProvider = "stylish-haskell",
+      }
+    },
     on_attach = function(client, bufnr)
-      local opts = vim.tbl_extend('keep', def_opts, { buffer = bufnr, })
-      -- haskell-language-server relies heavily on codeLenses,
-      -- so auto-refresh (see advanced configuration) is enabled by default
-      vim.keymap.set('n', '<space>hs', ht.hoogle.hoogle_signature, opts)
-      vim.keymap.set('n', '<space>ea', ht.lsp.buf_eval_all, opts)
-      -- -- Toggle a GHCi repl for the current package
-      vim.keymap.set('n', '<space>rr', ht.repl.toggle, opts)
-      -- -- Toggle a GHCi repl for the current buffer
-      vim.keymap.set('n', '<space>rf', function()
-        ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-      end, def_opts)
-      vim.keymap.set('n', '<space>rq', ht.repl.quit, opts)
+      local opts = vim.tbl_extend('keep', def_opts, { buffer = bufnr, prefix = "<space>" })
+      local wk = require("which-key")
+
+      wk.register({
+        h = {
+          s = { ht.hoogle.hoogle_signature, "Hoogle signature search" },
+        },
+        e = {
+          a = { ht.lsp.buf_eval_all, "Haskell evaluate all" },
+        },
+        r = {
+          r = { ht.repl.toggle, "Toggle GHCi REPL for package" },
+          f = { function() ht.repl.toggle(vim.api.nvim_buf_get_name(0)) end, "Toggle GHCi REPL for current buffer" },
+          q = { ht.repl.quit, "Close GHCi REPL" },
+        },
+      }, opts)
 
       require('telescope').load_extension('ht')
     end,

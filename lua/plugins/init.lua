@@ -67,13 +67,6 @@ return {
     ft = "tridactyl",
   },
   "chrisbra/unicode.vim",
-  {
-    "folke/trouble.nvim",
-    config = true,
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    }
-  },
 
   --
   -- Colour Schemes

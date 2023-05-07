@@ -4,7 +4,7 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
-    build= ":TSUpdate",
+    build = ":TSUpdate",
     config = function(_, opts)
       -- pcall(require("nvim-treesitter.install").update { with_sync = true })
       require("nvim-treesitter.configs").setup(opts)
@@ -15,7 +15,7 @@ return {
     end,
     opts = {
       ensure_installed = {
-        "lua", "vim", "help", "r"
+        "lua", "vim", "vimdoc", "help", "markdown", "markdown_inline", "query"
       },
       auto_install = true,
       indent = { enable = true },
@@ -37,6 +37,29 @@ return {
   },
   {
     "nvim-treesitter/playground",
+    lazy = true,
+    config = function()
+      require "nvim-treesitter.configs".setup {
+        playground = {
+          enable = true,
+          disable = {},
+          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+          persist_queries = false, -- Whether the query persists across vim sessions
+          keybindings = {
+            toggle_query_editor = 'o',
+            toggle_hl_groups = 'i',
+            toggle_injected_languages = 't',
+            toggle_anonymous_nodes = 'a',
+            toggle_language_display = 'I',
+            focus_language = 'f',
+            unfocus_language = 'F',
+            update = 'R',
+            goto_node = '<cr>',
+            show_help = '?',
+          },
+        }
+      }
+    end,
     cmd = "TSPlaygroundToggle",
   },
 }
