@@ -2,12 +2,17 @@ return {
   "tpope/vim-fugitive",
   "tpope/vim-rhubarb",
   "tpope/vim-sleuth",
-  "tpope/vim-surround",
   "tpope/vim-repeat",
   {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = true,
+  },
+  {
     "nvim-telescope/telescope.nvim",
-     dependencies = { 'nvim-lua/plenary.nvim' },
-     tag = '0.1.1',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    branch = '0.1.x',
   },
   {
     'nvim-telescope/telescope-fzf-native.nvim',
@@ -40,7 +45,11 @@ return {
       })
     end,
   },
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    config = true,
+    event = "VeryLazy",
+  },
   {
     'nvim-lualine/lualine.nvim',
     lazy = true,
@@ -55,11 +64,14 @@ return {
   },
   { "windwp/nvim-autopairs", config = true, },
   {
-    'akinsho/toggleterm.nvim', version = "*",
+    'akinsho/toggleterm.nvim',
+    version = "*",
     opts = {
       open_mapping = [[<c-\>]],
       shading_factor = "-25",
-    }
+      insert_mappings = true,
+      terminal_mappings = true,
+    },
   },
   {
     'tridactyl/vim-tridactyl',
@@ -80,7 +92,8 @@ return {
     },
     priority = 1000,
   },
-  { "catppuccin/nvim",
+  {
+    "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
   },
@@ -99,12 +112,14 @@ return {
     lazy = true,
     priority = 1000,
   },
-  { "bluz71/vim-nightfly-colors",
+  {
+    "bluz71/vim-nightfly-colors",
     name = "nightfly",
     lazy = true,
     priority = 1000
   },
-  { "bluz71/vim-moonfly-colors",
+  {
+    "bluz71/vim-moonfly-colors",
     name = "moonfly",
     lazy = true,
     priority = 1000
