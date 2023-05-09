@@ -27,6 +27,17 @@ return {
     }
   },
   {
+    'simrat39/symbols-outline.nvim',
+    opts = {
+      highlight_hovered_item = false,
+    },
+    cmd = {
+      'SymbolsOutline',
+      'SymbolsOutlineOpen',
+      'SymbolsOutlineClose',
+    },
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
     dependencies = {
