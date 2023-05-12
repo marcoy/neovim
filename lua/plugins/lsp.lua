@@ -10,9 +10,8 @@ return {
   },
   {
     "glepnir/lspsaga.nvim",
-    lazy = true,
     config = true,
-    cmd = "Lspsaga",
+    event = "LspAttach",
   },
   {
     'hrsh7th/nvim-cmp',
