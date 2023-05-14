@@ -1,7 +1,10 @@
 local ht = require('haskell-tools')
 local def_opts = { noremap = true, silent = true, }
+local hls_lsp = require('lsp-zero').build_options('hls', {})
+
 ht.start_or_attach {
   hls = {
+    capabilities = hls_lsp.capabilities,
     default_settings = {
       haskell = { -- haskell-language-server options
         formattingProvider = "stylish-haskell",
