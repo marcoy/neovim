@@ -10,6 +10,7 @@ wk.register({
     h = { tele.help_tags, "Help Tags" },
     r = { tele.oldfiles, "Recent File" },
     s = { tele.live_grep, "Live Grep" },
+    t = { "<cmd>Telescope file_browser<cr>", "File Tree" },
   },
   ["/"] = { function() tele.current_buffer_fuzzy_find(tele_themes.get_dropdown { winblend = 10, previewer = false, }) end,
         "Fuzzy search in current buffer" },
