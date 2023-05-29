@@ -58,39 +58,15 @@ return {
   },
   {
     "ggandor/leap.nvim",
-    name = "leap",
     event = "VeryLazy",
     config = function()
       require("leap").add_default_mappings()
-    end,
-  },
-  {
-    'phaazon/hop.nvim',
-    branch = 'v2',
-    event = "VeryLazy",
-    config = function()
-      local hop = require('hop')
-      local directions = require('hop.hint').HintDirection
-      local positions = require("hop.hint").HintPosition
-      local wk = require("which-key")
-
-      hop.setup()
-
-      wk.register({
-        f = { function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true }) end, "Hop f" },
-        F = { function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true }) end, "Hop F" },
-        t = { function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end, "Hop t" },
-        T = { function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 }) end, "Hop T" },
-        [",,j"] = { function() hop.hint_lines_skip_whitespace({ direction = directions.AFTER_CURSOR }) end, "Hop j" },
-        [",,k"] = { function() hop.hint_lines_skip_whitespace({ direction = directions.BEFORE_CURSOR }) end, "Hop k" },
-        [",,w"] = { function() hop.hint_words({ direction = directions.AFTER_CURSOR }) end, "Hop w" },
-        [",,e"] = { function() hop.hint_words({ direction = directions.AFTER_CURSOR, hint_position = positions.END }) end, "Hop e" },
-        [",,b"] = { function() hop.hint_words({ direction = directions.BEFORE_CURSOR }) end, "Hop b" },
-        [",,/"] = { function() hop.hint_patterns({ direction = nil, multi_windows = true }) end, "Hop /" },
-      }, { nowait = true, noremap = false })
+      require("flit").setup({
+        labeled_modes = "nvo",
+      })
     end,
     dependencies = {
-      "folke/which-key.nvim",
+      "ggandor/flit.nvim",
     },
   },
   { "windwp/nvim-autopairs", config = true, },
