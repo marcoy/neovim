@@ -81,9 +81,19 @@ return {
     },
   },
   {
-    'tridactyl/vim-tridactyl',
+    "tridactyl/vim-tridactyl",
     lazy = true,
     ft = "tridactyl",
+  },
+  {
+    "stevearc/oil.nvim",
+    opts = {
+      view_options = {
+        show_hidden = true,
+      },
+    },
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   "chrisbra/unicode.vim",
 
