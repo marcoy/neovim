@@ -32,7 +32,6 @@ set ruler
 set showcmd
 set number
 set laststatus=2
-set cmdheight=2
 
 set nobackup
 set nowritebackup

@@ -15,7 +15,7 @@ return {
     end,
     opts = {
       ensure_installed = {
-        "lua", "vim", "vimdoc", "help", "markdown", "markdown_inline", "query"
+        "lua", "vim", "vimdoc", "markdown", "markdown_inline", "query"
       },
       auto_install = true,
       indent = { enable = true },
