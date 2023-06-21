@@ -57,16 +57,29 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
   },
   {
-    "ggandor/leap.nvim",
+    "folke/flash.nvim",
     event = "VeryLazy",
-    config = function()
-      require("leap").add_default_mappings()
-      require("flit").setup({
-        labeled_modes = "nvo",
-      })
-    end,
-    dependencies = {
-      "ggandor/flit.nvim",
+    opts = {
+      jump = {
+        autojump = true,
+      }
+    },
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          -- default options: exact mode, multi window, all directions, with a backdrop
+          require("flash").jump()
+        end,
+      },
+      {
+        "S",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter()
+        end,
+      },
     },
   },
   { "windwp/nvim-autopairs", config = true, },
