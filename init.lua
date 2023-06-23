@@ -24,6 +24,33 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 -- >>>
 
+-- Hotpot <<<
+-- bootstrap hotpot.nvim
+-- Ref: https://github.com/avegancafe/VimStudio/tree/main
+local hotpot_path = lazypath .. '/hotpot.nvim'
+if not vim.loop.fs_stat(hotpot_path) then
+  vim.notify('Bootstrapping hotpot.nvim…', vim.log.levels.INFO)
+  vim.fn.system({
+    'git',
+    'clone',
+    '--filter=blob:none',
+    '--single-branch',
+    'https://github.com/rktjmp/hotpot.nvim.git',
+    hotpot_path,
+  })
+end
+vim.opt.rtp:prepend(hotpot_path)
+
+require('hotpot').setup({
+  provide_require_fennel = true,
+  compiler = {
+    modules = {
+      correlate = true,
+    },
+  },
+})
+-- >>>
+
 -- General Settings <<<
 vim.cmd([[
 set visualbell
