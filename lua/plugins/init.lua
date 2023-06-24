@@ -109,6 +109,12 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   "chrisbra/unicode.vim",
+  {
+    "max397574/better-escape.nvim",
+    opts = {
+      mapping = {"jk", "jj"}
+    },
+  },
 
   --
   -- Colour Schemes
