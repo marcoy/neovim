@@ -51,6 +51,11 @@ require('hotpot').setup({
 })
 -- >>>
 
+-- Fennel Modules <<<
+require("config")
+
+-- >>>
+
 -- General Settings <<<
 vim.cmd([[
 set visualbell
