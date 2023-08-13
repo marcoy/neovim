@@ -82,7 +82,7 @@ else
 end
 
 vim.o.undofile = true
-vim.o.undodir = vim.fn.stdpath("config") .. "/undodir"
+vim.o.undodir = vim.fn.stdpath("config") .. "/.undodir"
 
 -- vim.keymap.set('i', 'jk', '<esc>')
 vim.keymap.set('n', ';', ':')
