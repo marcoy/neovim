@@ -1,6 +1,8 @@
+local lsp_zero = require('lsp-zero')
 local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
+local cmp_action = lsp_zero.cmp_action()
 local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
+local wk = require("which-key")
 
 cmp.setup({
   sources = {
@@ -50,4 +52,37 @@ cmp.setup({
     ['<Tab>'] = cmp_action.luasnip_supertab(),
     ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
   }),
+})
+
+local hls_augroup = vim.api.nvim_create_augroup('haskell-lsp', {clear = true})
+vim.api.nvim_create_autocmd('FileType', {
+  group = hls_augroup,
+  pattern = {'haskell'},
+  callback = function()
+
+    ---
+    -- Suggested keymaps from the quick setup section:
+    -- https://github.com/mrcjkb/haskell-tools.nvim#quick-setup
+    ---
+    local ht = require('haskell-tools')
+    local bufnr = vim.api.nvim_get_current_buf()
+    local def_opts = { noremap = true, silent = true, }
+    local opts = vim.tbl_extend('keep', def_opts, { buffer = bufnr, prefix = "<space>" })
+
+    wk.register({
+      h = {
+        s = { ht.hoogle.hoogle_signature, "Hoogle signature search" },
+      },
+      e = {
+        a = { ht.lsp.buf_eval_all, "Haskell evaluate all" },
+      },
+      r = {
+        r = { ht.repl.toggle, "Toggle GHCi REPL for package" },
+        f = { function() ht.repl.toggle(vim.api.nvim_buf_get_name(0)) end, "Toggle GHCi REPL for current buffer" },
+        q = { ht.repl.quit, "Close GHCi REPL" },
+      },
+    }, opts)
+
+    require('telescope').load_extension('ht')
+  end
 })

@@ -28,16 +28,6 @@ return {
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
   },
   {
-    'mrcjkb/haskell-tools.nvim',
-    lazy = true,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim', -- optional
-    },
-    ft = "haskell",
-    -- branch = '1.x.x', -- recommended
-  },
-  {
     "folke/which-key.nvim",
     config = function()
       vim.o.timeout = true

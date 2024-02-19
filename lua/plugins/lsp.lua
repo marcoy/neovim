@@ -37,30 +37,56 @@ return {
     },
   },
   {
+    'mrcjkb/haskell-tools.nvim',
+    version = '^3',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim', -- optional
+    },
+    ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
+  },
+  {
+    'williamboman/mason.nvim',
+    config = true,
+    build = function()
+      pcall(vim.cmd, 'MasonUpdate')
+    end,
+  },
+  {
+    'williamboman/mason-lspconfig.nvim',
+    config = function()
+      local lsp_zero = require("lsp-zero")
+      local mason_lspconfig = require('mason-lspconfig')
+
+      mason_lspconfig.setup({
+        handlers = {
+          lsp_zero.default_setup,
+          hls = lsp_zero.noop,
+          lua_ls = function()
+            local lua_opts = lsp_zero.nvim_lua_ls()
+            require('lspconfig').lua_ls.setup(lua_opts)
+          end,
+        },
+      })
+    end,
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
+    branch = 'v3.x',
     dependencies = {
       -- LSP Support
       { 'neovim/nvim-lspconfig' }, -- Required
-      {
-        -- Optional
-        'williamboman/mason.nvim',
-        build = function()
-          pcall(vim.cmd, 'MasonUpdate')
-        end,
-      },
-      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
       -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },     -- Required
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+      { 'hrsh7th/nvim-cmp' },     -- Required
       { 'L3MON4D3/LuaSnip' },     -- Required
     },
     config = function()
-      local lsp = require("lsp-zero").preset("recommended")
+      local lsp_zero = require("lsp-zero") -- .preset("recommended")
 
-      lsp.on_attach(function(client, bufnr)
-        lsp.default_keymaps({ buffer = bufnr })
+      lsp_zero.on_attach(function(client, bufnr)
+        lsp_zero.default_keymaps({ buffer = bufnr })
         local opts = { buffer = bufnr, prefix = "<space>" }
         local wk = require("which-key")
 
@@ -81,12 +107,23 @@ return {
         }, opts)
       end)
 
-      -- (Optional) Configure lua language server for neovim
-      require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+      vim.g.haskell_tools = {
+        hls = {
+          capabilities = lsp_zero.get_capabilities(),
+          default_settings = {
+            haskell = { -- haskell-language-server options
+              formattingProvider = "stylish-haskell",
+            }
+          },
+        },
+        tools = { -- haskell-tools options
+          log = {
+            level = vim.log.levels.DEBUG,
+          },
+        },
+      }
 
-      lsp.skip_server_setup({'hls'})
-
-      lsp.setup()
+      lsp_zero.setup()
     end,
   },
 }
