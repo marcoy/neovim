@@ -1,10 +1,12 @@
 local lsp_zero = require('lsp-zero')
 local cmp = require('cmp')
 local cmp_action = lsp_zero.cmp_action()
+local cmp_format = lsp_zero.cmp_format()
 local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 local wk = require("which-key")
 
 cmp.setup({
+  formatting = cmp_format,
   sources = {
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },

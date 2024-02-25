@@ -116,11 +116,11 @@ return {
             }
           },
         },
-        tools = { -- haskell-tools options
-          log = {
-            level = vim.log.levels.DEBUG,
-          },
-        },
+        -- tools = { -- haskell-tools options
+        --   log = {
+        --     level = vim.log.levels.DEBUG,
+        --   },
+        -- },
       }
 
       lsp_zero.setup()
