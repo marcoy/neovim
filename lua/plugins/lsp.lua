@@ -86,12 +86,25 @@ return {
       local lsp_zero = require("lsp-zero") -- .preset("recommended")
 
       lsp_zero.on_attach(function(client, bufnr)
-        lsp_zero.default_keymaps({ buffer = bufnr })
+        -- see :help lsp-zero-keybindings
+        lsp_zero.default_keymaps({
+          buffer = bufnr,
+          preserve_mappings = false
+        })
         local opts = { buffer = bufnr, prefix = "<space>" }
         local wk = require("which-key")
 
         wk.register({
           f = { function() vim.lsp.buf.format { async = true } end, "Format file" },
+          -- g = {
+          --   i = { vim.lsp.buf.implementation, "List all implementations"},
+          -- },
+          t = {
+            d = { "<cmd>Telescope lsp_definitions<cr>", "Telescope LSP definitions" },
+            r = { "<cmd>Telescope lsp_references<cr>", "Telescope LSP references" },
+            s = { "<cmd>Telescope lsp_document_symbols<cr>", "Telescope LSP document symbols" },
+            S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Telescope LSP workspace symbols" },
+          },
           r = {
             n = { vim.lsp.buf.rename, "Rename" },
           },
@@ -122,8 +135,6 @@ return {
         --   },
         -- },
       }
-
-      lsp_zero.setup()
     end,
   },
 }
