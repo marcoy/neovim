@@ -61,7 +61,6 @@ vim.api.nvim_create_autocmd('FileType', {
   group = hls_augroup,
   pattern = {'haskell'},
   callback = function()
-
     ---
     -- Suggested keymaps from the quick setup section:
     -- https://github.com/mrcjkb/haskell-tools.nvim#quick-setup

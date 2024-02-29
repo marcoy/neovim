@@ -71,6 +71,38 @@ return {
     end,
   },
   {
+    'Vigemus/iron.nvim',
+    config = function()
+      local iron = require("iron.core")
+      -- local wk = require("which-key")
+      -- local bufnr = vim.api.nvim_get_current_buf()
+
+      iron.setup {
+        config = {
+          repl_definition = {
+            sh = {
+              command = {"zsh"}
+            },
+            haskell = {
+              command = function(meta)
+                local file = vim.api.nvim_buf_get_name(meta.current_bufnr)
+                -- call `require` in case iron is set up before haskell-tools
+                return require('haskell-tools').repl.mk_repl_cmd(file)
+              end,
+            },
+          },
+          repl_open_cmd = require('iron.view').bottom(40),
+        },
+      }
+
+      -- local opts = { buffer = bufnr, prefix = "<space>" }
+      -- wk.register({
+      --   i = {
+      --   }
+      -- }, opts)
+    end,
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
     dependencies = {
