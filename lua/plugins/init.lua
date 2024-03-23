@@ -94,6 +94,9 @@ return {
       mapping = {"jk", "jj"}
     },
   },
+  {
+    "nanotee/zoxide.vim"
+  },
 
   --
   -- Colour Schemes
