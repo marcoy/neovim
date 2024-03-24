@@ -90,7 +90,7 @@ vim.keymap.set('n', ';', ':')
 -- Neovide <<<
 
 if vim.g.neovide then
-  vim.o.guifont = "marco Nerd Font Mono:#e-subpixelantialias:h12"
+  vim.o.guifont = "MarcoCustom Nerd Font Mono:#e-subpixelantialias:h13:l"
 
   vim.g.neovide_refresh_rate = 60
   vim.g.neovide_refresh_rate_idle = 5
