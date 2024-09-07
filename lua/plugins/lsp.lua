@@ -126,30 +126,30 @@ return {
         local opts = { buffer = bufnr, prefix = "<space>" }
         local wk = require("which-key")
 
-        wk.register({
-          f = { function() vim.lsp.buf.format { async = true } end, "Format file" },
-          -- g = {
-          --   i = { vim.lsp.buf.implementation, "List all implementations"},
-          -- },
-          t = {
-            d = { "<cmd>Telescope lsp_definitions<cr>", "Telescope LSP definitions" },
-            r = { "<cmd>Telescope lsp_references<cr>", "Telescope LSP references" },
-            s = { "<cmd>Telescope lsp_document_symbols<cr>", "Telescope LSP document symbols" },
-            S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Telescope LSP workspace symbols" },
-          },
-          r = {
-            n = { vim.lsp.buf.rename, "Rename" },
-          },
-          c = {
-            l = { vim.lsp.codelens.run, "Code lens" },
-            a = { vim.lsp.buf.code_action, "Code actions" },
-          },
-          w = {
-            a = { vim.lsp.buf.add_workspace_folder, "Workspace add folder" },
-            r = { vim.lsp.buf.remove_workspace_folder, "Workspace remove folder" },
-            l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace list folders" },
-          },
-        }, opts)
+        -- wk.register({
+        --   f = { function() vim.lsp.buf.format { async = true } end, "Format file" },
+        --   -- g = {
+        --   --   i = { vim.lsp.buf.implementation, "List all implementations"},
+        --   -- },
+        --   t = {
+        --     d = { "<cmd>Telescope lsp_definitions<cr>", "Telescope LSP definitions" },
+        --     r = { "<cmd>Telescope lsp_references<cr>", "Telescope LSP references" },
+        --     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Telescope LSP document symbols" },
+        --     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Telescope LSP workspace symbols" },
+        --   },
+        --   r = {
+        --     n = { vim.lsp.buf.rename, "Rename" },
+        --   },
+        --   c = {
+        --     l = { vim.lsp.codelens.run, "Code lens" },
+        --     a = { vim.lsp.buf.code_action, "Code actions" },
+        --   },
+        --   w = {
+        --     a = { vim.lsp.buf.add_workspace_folder, "Workspace add folder" },
+        --     r = { vim.lsp.buf.remove_workspace_folder, "Workspace remove folder" },
+        --     l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace list folders" },
+        --   },
+        -- }, opts)
       end)
 
       vim.g.haskell_tools = {

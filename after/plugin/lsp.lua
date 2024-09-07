@@ -70,19 +70,19 @@ vim.api.nvim_create_autocmd('FileType', {
     local def_opts = { noremap = true, silent = true, }
     local opts = vim.tbl_extend('keep', def_opts, { buffer = bufnr, prefix = "<space>" })
 
-    wk.register({
-      h = {
-        s = { ht.hoogle.hoogle_signature, "Hoogle signature search" },
-      },
-      e = {
-        a = { ht.lsp.buf_eval_all, "Haskell evaluate all" },
-      },
-      r = {
-        r = { ht.repl.toggle, "Toggle GHCi REPL for package" },
-        f = { function() ht.repl.toggle(vim.api.nvim_buf_get_name(0)) end, "Toggle GHCi REPL for current buffer" },
-        q = { ht.repl.quit, "Close GHCi REPL" },
-      },
-    }, opts)
+    -- wk.register({
+    --   h = {
+    --     s = { ht.hoogle.hoogle_signature, "Hoogle signature search" },
+    --   },
+    --   e = {
+    --     a = { ht.lsp.buf_eval_all, "Haskell evaluate all" },
+    --   },
+    --   r = {
+    --     r = { ht.repl.toggle, "Toggle GHCi REPL for package" },
+    --     f = { function() ht.repl.toggle(vim.api.nvim_buf_get_name(0)) end, "Toggle GHCi REPL for current buffer" },
+    --     q = { ht.repl.quit, "Close GHCi REPL" },
+    --   },
+    -- }, opts)
 
     require('telescope').load_extension('ht')
   end

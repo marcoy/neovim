@@ -6,4 +6,7 @@ return {
       require('mini.align').setup()
     end
   },
+  { 'echasnovski/mini.icons',
+    version = false
+  },
 }

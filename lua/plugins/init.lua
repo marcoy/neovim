@@ -29,11 +29,21 @@ return {
   },
   {
     "folke/which-key.nvim",
+    event = "VeryLazy",
     init = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
     end,
     opts = {},
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
   },
   {
     'numToStr/Comment.nvim',
@@ -90,9 +100,7 @@ return {
   "chrisbra/unicode.vim",
   {
     "max397574/better-escape.nvim",
-    opts = {
-      mapping = {"jk", "jj"}
-    },
+    config = true,
   },
   {
     "nanotee/zoxide.vim"
