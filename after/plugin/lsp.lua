@@ -4,6 +4,7 @@ local cmp_action = lsp_zero.cmp_action()
 local cmp_format = lsp_zero.cmp_format()
 local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 local wk = require("which-key")
+local luasnip = require("luasnip")
 
 cmp.setup({
   formatting = cmp_format,
@@ -19,6 +20,11 @@ cmp.setup({
     },
     { name = 'buffer',  keyword_length = 2 },
     { name = 'luasnip', keyword_length = 2 },
+  },
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-e>'] = cmp.mapping.abort(),

@@ -94,79 +94,91 @@ return {
           repl_open_cmd = require('iron.view').bottom(40),
         },
       }
-
-      -- local opts = { buffer = bufnr, prefix = "<space>" }
-      -- wk.register({
-      --   i = {
-      --   }
-      -- }, opts)
     end,
   },
+  { 'neovim/nvim-lspconfig' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/nvim-cmp' },
+  { 'L3MON4D3/LuaSnip' },
   {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' }, -- Required
-
-      -- Autocompletion
-      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-      { 'hrsh7th/nvim-cmp' },     -- Required
-      { 'L3MON4D3/LuaSnip' },     -- Required
-    },
+    branch = 'v4.x',
     config = function()
       local lsp_zero = require("lsp-zero") -- .preset("recommended")
 
-      lsp_zero.on_attach(function(client, bufnr)
-        -- see :help lsp-zero-keybindings
-        lsp_zero.default_keymaps({
-          buffer = bufnr,
-          preserve_mappings = false
-        })
-        local opts = { buffer = bufnr, prefix = "<space>" }
-        local wk = require("which-key")
+      -- lsp_attach is where you enable features that only work
+      -- if there is a language server active in the file
+      local lsp_attach = function(client, bufnr)
+        local opts = {buffer = bufnr}
 
-        -- wk.register({
-        --   f = { function() vim.lsp.buf.format { async = true } end, "Format file" },
-        --   -- g = {
-        --   --   i = { vim.lsp.buf.implementation, "List all implementations"},
-        --   -- },
-        --   t = {
-        --     d = { "<cmd>Telescope lsp_definitions<cr>", "Telescope LSP definitions" },
-        --     r = { "<cmd>Telescope lsp_references<cr>", "Telescope LSP references" },
-        --     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Telescope LSP document symbols" },
-        --     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Telescope LSP workspace symbols" },
-        --   },
-        --   r = {
-        --     n = { vim.lsp.buf.rename, "Rename" },
-        --   },
-        --   c = {
-        --     l = { vim.lsp.codelens.run, "Code lens" },
-        --     a = { vim.lsp.buf.code_action, "Code actions" },
-        --   },
-        --   w = {
-        --     a = { vim.lsp.buf.add_workspace_folder, "Workspace add folder" },
-        --     r = { vim.lsp.buf.remove_workspace_folder, "Workspace remove folder" },
-        --     l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace list folders" },
-        --   },
-        -- }, opts)
-      end)
+        vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+        vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+        vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+        vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+        vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+      end
 
-      vim.g.haskell_tools = {
-        hls = {
-          capabilities = lsp_zero.get_capabilities(),
-          default_settings = {
-            haskell = { -- haskell-language-server options
-              formattingProvider = "stylish-haskell",
-            }
-          },
-        },
-        -- tools = { -- haskell-tools options
-        --   log = {
-        --     level = vim.log.levels.DEBUG,
-        --   },
-        -- },
-      }
+      lsp_zero.extend_lspconfig({
+        sign_text = true,
+        lsp_attach = lsp_attach,
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      })
+
+    --   lsp_zero.on_attach(function(client, bufnr)
+    --     -- see :help lsp-zero-keybindings
+    --     lsp_zero.default_keymaps({
+    --       buffer = bufnr,
+    --       preserve_mappings = false
+    --     })
+    --     local opts = { buffer = bufnr, prefix = "<space>" }
+    --     local wk = require("which-key")
+    --
+    --     -- wk.register({
+    --     --   f = { function() vim.lsp.buf.format { async = true } end, "Format file" },
+    --     --   -- g = {
+    --     --   --   i = { vim.lsp.buf.implementation, "List all implementations"},
+    --     --   -- },
+    --     --   t = {
+    --     --     d = { "<cmd>Telescope lsp_definitions<cr>", "Telescope LSP definitions" },
+    --     --     r = { "<cmd>Telescope lsp_references<cr>", "Telescope LSP references" },
+    --     --     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Telescope LSP document symbols" },
+    --     --     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Telescope LSP workspace symbols" },
+    --     --   },
+    --     --   r = {
+    --     --     n = { vim.lsp.buf.rename, "Rename" },
+    --     --   },
+    --     --   c = {
+    --     --     l = { vim.lsp.codelens.run, "Code lens" },
+    --     --     a = { vim.lsp.buf.code_action, "Code actions" },
+    --     --   },
+    --     --   w = {
+    --     --     a = { vim.lsp.buf.add_workspace_folder, "Workspace add folder" },
+    --     --     r = { vim.lsp.buf.remove_workspace_folder, "Workspace remove folder" },
+    --     --     l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace list folders" },
+    --     --   },
+    --     -- }, opts)
+    --   end)
+    --
+    --   vim.g.haskell_tools = {
+    --     hls = {
+    --       capabilities = lsp_zero.get_capabilities(),
+    --       default_settings = {
+    --         haskell = { -- haskell-language-server options
+    --           formattingProvider = "stylish-haskell",
+    --         }
+    --       },
+    --     },
+    --     -- tools = { -- haskell-tools options
+    --     --   log = {
+    --     --     level = vim.log.levels.DEBUG,
+    --     --   },
+    --     -- },
+    --   }
     end,
   },
 }
